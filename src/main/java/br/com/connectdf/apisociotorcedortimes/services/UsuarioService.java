@@ -24,7 +24,7 @@ public class UsuarioService {
 
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
-            System.err.println("Erro ao buscar usuarios: " + e.getMessage());
+            System.out.println("Erro ao buscar usuarios: " + e.getMessage());
 
             throw new RuntimeException(
                     "Ocorreu um erro ao buscar os usuarios.");
@@ -38,7 +38,7 @@ public class UsuarioService {
 
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
-            System.err.println(
+            System.out.println(
                     "Erro ao buscar usuario por id: " + e.getMessage() + e.getCause());
 
             throw new RuntimeException(
@@ -54,7 +54,7 @@ public class UsuarioService {
             return resultado.isPresent() ? ResponseEntity.ok(resultado) :
                     ResponseEntity.notFound().build();
         } catch (Exception e) {
-            System.err.println(
+            System.out.println(
                     "Erro ao buscar usuario por cpf: " + e.getMessage() + e.getCause());
 
             throw new RuntimeException(
@@ -69,7 +69,7 @@ public class UsuarioService {
 
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
-            System.err.println(
+            System.out.println(
                     "Erro ao buscar usuario por cnpj: " + e.getMessage() + e.getCause());
 
             throw new RuntimeException(
@@ -85,7 +85,7 @@ public class UsuarioService {
             return resultado.isPresent() ? ResponseEntity.ok(resultado) :
                     ResponseEntity.notFound().build();
         } catch (Exception e) {
-            System.err.println(
+            System.out.println(
                     "Erro ao buscar usuario por email: " + e.getMessage() + e.getCause());
 
             throw new RuntimeException(
@@ -96,7 +96,7 @@ public class UsuarioService {
     @Transactional
     public ResponseEntity<Usuario> inserirUsuario(Usuario usuario) {
 
-        try {
+//        try {
             Optional<Usuario> usuarioRequest = usuarioRepository.findByCpf(
                     usuario.getCpf());
             if (usuarioRequest.isPresent()) {
@@ -106,12 +106,12 @@ public class UsuarioService {
 
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(usuarioRepository.saveAndFlush(usuario));
-        } catch (Exception e) {
-            System.err.println(
-                    "Erro ao inserir usuario: " + e.getMessage() + e.getCause());
-
-            throw new RuntimeException("Ocorreu um erro ao cadastrar usuario");
-        }
+//        } catch (Exception e) {
+//            System.out.println(
+//                    "Erro ao inserir usuario: " + e.getMessage() + e.getCause());
+//
+//            throw new RuntimeException("Ocorreu um erro ao cadastrar usuario " + e.getCause());
+//        }
 
     }
 
@@ -121,7 +121,7 @@ public class UsuarioService {
             Usuario us = usuarioRepository.saveAndFlush(usuario);
             return ResponseEntity.ok().body(us);
         } catch (Exception e) {
-            System.err.println(
+            System.out.println(
                     "Erro ao alterar usuario: " + e.getMessage() + e.getCause());
 
             throw new RuntimeException("Ocorreu um erro ao alterar usuario");
@@ -133,7 +133,7 @@ public class UsuarioService {
         try {
             usuarioRepository.deleteById(id);
         } catch (Exception e) {
-            System.err.println(
+            System.out.println(
                     "Erro ao deletar usuario: " + e.getMessage() + e.getCause());
 
             throw new RuntimeException("Ocorreu um erro ao deletar usuario");
