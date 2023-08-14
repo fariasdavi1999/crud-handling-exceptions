@@ -18,9 +18,10 @@ import java.util.Map;
 public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    public ProblemDetail handlerBadRequest(BadRequestException e) {
-        return createProblemDetail(e, HttpStatus.BAD_REQUEST, null,
-                                   "Corpo de requisição inválido", null,
+    public ProblemDetail handlerBadRequest(
+            BadRequestException badRequestException) {
+        return createProblemDetail(badRequestException, HttpStatus.BAD_REQUEST,
+                                   null, "Corpo da requisição inválido", null,
                                    Map.of("timestamp", LocalDateTime.now()));
     }
 
