@@ -1,49 +1,34 @@
 package br.com.connectdf.apisociotorcedortimes.config.commons.exceptions.handler;
 
 import br.com.connectdf.apisociotorcedortimes.config.commons.exceptions.BadRequestException;
-import jakarta.annotation.Nullable;
+import br.com.connectdf.apisociotorcedortimes.config.commons.exceptions.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @ControllerAdvice
-@RestControllerAdvice
 public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    public ProblemDetail handlerBadRequest(
+    public ResponseEntity<Object> handleBadRequestException(
             BadRequestException badRequestException) {
-        return createProblemDetail(badRequestException, HttpStatus.BAD_REQUEST,
-                                   null, "Corpo da requisição inválido", null,
-                                   Map.of("timestamp", LocalDateTime.now()));
+
+        logger.error(badRequestException.getMessage());
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+
+        exceptionResponse.setDateTime(LocalDateTime.now());
+        exceptionResponse.setMessage("Corpo da requisição inválido");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(exceptionResponse);
+
     }
 
-//    @ExceptionHandler()
-
-    private ProblemDetail createProblemDetail(Throwable exception,
-                                              HttpStatus status,
-                                              @Nullable URI type,
-                                              @Nullable String title,
-                                              @Nullable URI instance,
-                                              @Nullable Map<String, Object> properties) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status,
-                                                                       exception.getMessage());
-        if (title != null)
-            problemDetail.setTitle(title);
-        if (type != null)
-            problemDetail.setType(type);
-        if (instance != null)
-            problemDetail.setInstance(instance);
-        if (properties != null && !properties.isEmpty()) {
-            properties.forEach(problemDetail::setProperty);
-        }
-        return problemDetail;
-    }
 }
+
