@@ -79,21 +79,22 @@ public class UsuarioService {
 
     @Transactional
     public ResponseEntity<Optional<Usuario>> findByEmail(String email) {
-        try {
+//        try {
             Optional<Usuario> resultado = usuarioRepository.findByEmail(email);
 
             return resultado.isPresent() ? ResponseEntity.ok(resultado) :
                     ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            System.out.println(
-                    "Erro ao buscar usuario por email: " + e.getMessage() + e.getCause());
-
-            throw new RuntimeException(
-                    "Ocorreu um erro ao buscar usuario por email");
-        }
+//        }
+//        catch (Exception e) {
+//            System.out.println(
+//                    "Erro ao buscar usuario por email: " + e.getMessage() + e.getCause());
+//
+//            throw new RuntimeException(
+//                    "Ocorreu um erro ao buscar usuario por email");
+//        }
     }
 
-    @Transactional
+//    @Transactional
     public ResponseEntity<Usuario> inserirUsuario(Usuario usuario) {
 
 //        try {
@@ -117,27 +118,29 @@ public class UsuarioService {
 
     @Transactional
     public ResponseEntity<Usuario> alterarUsuario(Usuario usuario) {
-        try {
+//        try {
             Usuario us = usuarioRepository.saveAndFlush(usuario);
             return ResponseEntity.ok().body(us);
-        } catch (Exception e) {
-            System.out.println(
-                    "Erro ao alterar usuario: " + e.getMessage() + e.getCause());
-
-            throw new RuntimeException("Ocorreu um erro ao alterar usuario");
-        }
+//        }
+//        catch (Exception e) {
+//            System.out.println(
+//                    "Erro ao alterar usuario: " + e.getMessage() + e.getCause());
+//
+//            throw new RuntimeException("Ocorreu um erro ao alterar usuario");
+//        }
     }
 
     @Transactional
     public void removerUsuario(Long id) {
-        try {
+//        try {
             usuarioRepository.deleteById(id);
-        } catch (Exception e) {
-            System.out.println(
-                    "Erro ao deletar usuario: " + e.getMessage() + e.getCause());
-
-            throw new RuntimeException("Ocorreu um erro ao deletar usuario");
-        }
+//        }
+//        catch (Exception e) {
+//            System.out.println(
+//                    "Erro ao deletar usuario: " + e.getMessage() + e.getCause());
+//
+//            throw new RuntimeException("Ocorreu um erro ao deletar usuario");
+//        }
     }
 
 }
