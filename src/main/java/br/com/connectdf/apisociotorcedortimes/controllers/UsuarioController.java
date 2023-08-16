@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/usuario")
@@ -24,13 +25,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Usuario>> findById(
-            @Valid @PathVariable Long id) {
+    public ResponseEntity<Usuario> findById(
+            @Valid @PathVariable UUID id) {
         return usuarioService.findById(id);
     }
 
     @GetMapping("/cpf")
-    public ResponseEntity<Optional<Usuario>> findByCpf(
+    public ResponseEntity<Usuario> findByCpf(
             @Valid @RequestParam String cpf) {
         return usuarioService.findByCpf(cpf);
     }
@@ -54,14 +55,15 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> alterarUsuario(@PathVariable Long id,
-                                                  @Valid @RequestBody Usuario usuario) {
-        
+    public ResponseEntity<Usuario> alterarUsuario(@PathVariable UUID id,
+                                                  @Valid @RequestBody
+                                                  Usuario usuario) {
+
         return usuarioService.alterarUsuario(usuario);
     }
 
     @DeleteMapping("/{id}")
-    public void removerUsuario(@PathVariable Long id) {
+    public void removerUsuario(@PathVariable UUID id) {
         usuarioService.removerUsuario(id);
     }
 

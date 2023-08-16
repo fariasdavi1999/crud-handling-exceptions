@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.logging.Logger;
 
 @Service
 public class UsuarioService {
@@ -17,130 +19,83 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    private Logger logger;
+
     @Transactional
     public ResponseEntity<List<Usuario>> findAll() {
-        try {
-            List<Usuario> resultado = usuarioRepository.findAll();
 
-            return ResponseEntity.ok(resultado);
-        } catch (Exception e) {
-            System.out.println("Erro ao buscar usuarios: " + e.getMessage());
+        List<Usuario> resultado = usuarioRepository.findAll();
 
-            throw new RuntimeException(
-                    "Ocorreu um erro ao buscar os usuarios.");
-        }
+        return ResponseEntity.ok(resultado);
+
     }
 
     @Transactional
-    public ResponseEntity<Optional<Usuario>> findById(Long id) {
-        try {
-            Optional<Usuario> resultado = usuarioRepository.findById(id);
+    public ResponseEntity<Usuario> findById(UUID id) {
 
-            return ResponseEntity.ok(resultado);
-        } catch (Exception e) {
-            System.out.println(
-                    "Erro ao buscar usuario por id: " + e.getMessage() + e.getCause());
+        Usuario resultado = usuarioRepository.findById(id).get();
 
-            throw new RuntimeException(
-                    "Ocorreu um erro ao buscar usuario por id");
-        }
+        return ResponseEntity.ok(resultado);
+
     }
 
     @Transactional
-    public ResponseEntity<Optional<Usuario>> findByCpf(String cpf) {
-        try {
-            Optional<Usuario> resultado = usuarioRepository.findByCpf(cpf);
+    public ResponseEntity<Usuario> findByCpf(String cpf) {
 
-            return resultado.isPresent() ? ResponseEntity.ok(resultado) :
-                    ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            System.out.println(
-                    "Erro ao buscar usuario por cpf: " + e.getMessage() + e.getCause());
+        Usuario resultado = usuarioRepository.findByCpf(cpf).get();
 
-            throw new RuntimeException(
-                    "Ocorreu um erro ao buscar usuario por cpf");
-        }
+//        return resultado.isPresent() ? ResponseEntity.ok(resultado) :
+//                ResponseEntity.notFound().build();
+        return ResponseEntity.ok(resultado);
+
     }
 
     @Transactional
     public ResponseEntity<Optional<Usuario>> findByCnpj(String cnpj) {
-        try {
-            Optional<Usuario> resultado = usuarioRepository.findByCnpj(cnpj);
 
-            return ResponseEntity.ok(resultado);
-        } catch (Exception e) {
-            System.out.println(
-                    "Erro ao buscar usuario por cnpj: " + e.getMessage() + e.getCause());
+        Optional<Usuario> resultado = usuarioRepository.findByCnpj(cnpj);
 
-            throw new RuntimeException(
-                    "Ocorreu um erro ao buscar usuario por cnpj");
-        }
+        return ResponseEntity.ok(resultado);
+
     }
 
     @Transactional
     public ResponseEntity<Optional<Usuario>> findByEmail(String email) {
-//        try {
-            Optional<Usuario> resultado = usuarioRepository.findByEmail(email);
 
-            return resultado.isPresent() ? ResponseEntity.ok(resultado) :
-                    ResponseEntity.notFound().build();
-//        }
-//        catch (Exception e) {
-//            System.out.println(
-//                    "Erro ao buscar usuario por email: " + e.getMessage() + e.getCause());
-//
-//            throw new RuntimeException(
-//                    "Ocorreu um erro ao buscar usuario por email");
-//        }
+        Optional<Usuario> resultado = usuarioRepository.findByEmail(email);
+
+        return ResponseEntity.ok(resultado);
+
     }
 
-//    @Transactional
+    @Transactional
     public ResponseEntity<Usuario> inserirUsuario(Usuario usuario) {
 
-//        try {
-            Optional<Usuario> usuarioRequest = usuarioRepository.findByCpf(
-                    usuario.getCpf());
-            if (usuarioRequest.isPresent()) {
-                usuarioRequest.get();
+        Optional<Usuario> usuarioRequest = usuarioRepository.findByCpf(
+                usuario.getCpf());
+        if (usuarioRequest.isPresent()) {
+            usuarioRequest.get();
 
-            }
+        }
 
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(usuarioRepository.saveAndFlush(usuario));
-//        } catch (Exception e) {
-//            System.out.println(
-//                    "Erro ao inserir usuario: " + e.getMessage() + e.getCause());
-//
-//            throw new RuntimeException("Ocorreu um erro ao cadastrar usuario " + e.getCause());
-//        }
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(usuarioRepository.saveAndFlush(usuario));
 
     }
 
     @Transactional
     public ResponseEntity<Usuario> alterarUsuario(Usuario usuario) {
-//        try {
-            Usuario us = usuarioRepository.saveAndFlush(usuario);
-            return ResponseEntity.ok().body(us);
-//        }
-//        catch (Exception e) {
-//            System.out.println(
-//                    "Erro ao alterar usuario: " + e.getMessage() + e.getCause());
-//
-//            throw new RuntimeException("Ocorreu um erro ao alterar usuario");
-//        }
+
+        Usuario us = usuarioRepository.saveAndFlush(usuario);
+        return ResponseEntity.ok().body(us);
+
     }
 
     @Transactional
-    public void removerUsuario(Long id) {
-//        try {
-            usuarioRepository.deleteById(id);
-//        }
-//        catch (Exception e) {
-//            System.out.println(
-//                    "Erro ao deletar usuario: " + e.getMessage() + e.getCause());
-//
-//            throw new RuntimeException("Ocorreu um erro ao deletar usuario");
-//        }
+    public void removerUsuario(UUID id) {
+
+        usuarioRepository.deleteById(id);
+
     }
 
 }

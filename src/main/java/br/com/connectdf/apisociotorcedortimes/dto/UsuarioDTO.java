@@ -1,7 +1,5 @@
 package br.com.connectdf.apisociotorcedortimes.dto;
 
-import jakarta.persistence.Column;
-
 import java.util.UUID;
 
 public class UsuarioDTO {
