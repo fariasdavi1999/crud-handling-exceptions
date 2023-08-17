@@ -1,5 +1,6 @@
 package br.com.connectdf.apisociotorcedortimes.controllers;
 
+import br.com.connectdf.apisociotorcedortimes.dto.UsuarioDTO;
 import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
 import br.com.connectdf.apisociotorcedortimes.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -19,7 +20,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
 
         return usuarioService.findAll();
     }
