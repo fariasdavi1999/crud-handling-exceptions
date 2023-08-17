@@ -7,7 +7,6 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.net.URI;
@@ -21,6 +20,9 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @ControllerAdvice
 @RestControllerAdvice
 public class GlobalHandlerException extends ResponseEntityExceptionHandler {
+
+
+
 
     @ExceptionHandler(BadRequestException.class)
     public ProblemDetail handleBadRequest(
@@ -42,8 +44,6 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
         logger.error(noSuchElementException.getMessage() +
                              noSuchElementException.getCause());
 
-//        return new ResponseEntity<>("Nenhum valor foi encontrado",
-//                                    HttpStatus.NOT_FOUND);
         return createProblemDetail(noSuchElementException, NOT_FOUND, null,
                                    "Nenhum valor foi encontrado",
                                    "No value present", null,
