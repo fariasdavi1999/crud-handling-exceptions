@@ -22,8 +22,6 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
 
-
-
     @ExceptionHandler(BadRequestException.class)
     public ProblemDetail handleBadRequest(
             BadRequestException badRequestException) {
@@ -32,8 +30,7 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
                              badRequestException.getCause());
 
         return createProblemDetail(badRequestException, BAD_REQUEST, null,
-                                   "Corpo da requisição inválido",
-                                   "", null,
+                                   "Corpo da requisição inválido", "", null,
                                    Map.of("timestamp", LocalDateTime.now()));
     }
 

@@ -1,5 +1,6 @@
 package br.com.connectdf.apisociotorcedortimes.services;
 
+import br.com.connectdf.apisociotorcedortimes.dto.UsuarioDTO;
 import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
 import br.com.connectdf.apisociotorcedortimes.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @Service
 public class UsuarioService {
@@ -19,14 +20,18 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private Logger logger;
-
     @Transactional
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
 
         List<Usuario> resultado = usuarioRepository.findAll();
 
-        return ResponseEntity.ok(resultado);
+        List<UsuarioDTO> dto = new ArrayList<>();
+        for (Usuario usuario : resultado) {
+            UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
+            dto.add(usuarioDTO);
+        }
+
+        return ResponseEntity.ok(dto);
 
     }
 
@@ -44,8 +49,6 @@ public class UsuarioService {
 
         Usuario resultado = usuarioRepository.findByCpf(cpf).get();
 
-//        return resultado.isPresent() ? ResponseEntity.ok(resultado) :
-//                ResponseEntity.notFound().build();
         return ResponseEntity.ok(resultado);
 
     }
