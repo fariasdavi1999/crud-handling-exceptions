@@ -76,10 +76,7 @@ public class UsuarioService {
 
         Optional<Usuario> usuarioRequest = usuarioRepository.findByCpf(
                 usuario.getCpf());
-        if (usuarioRequest.isPresent()) {
-            usuarioRequest.get();
 
-        }
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(usuarioRepository.saveAndFlush(usuario));
@@ -97,7 +94,25 @@ public class UsuarioService {
     @Transactional
     public void removerUsuario(UUID id) {
 
-        usuarioRepository.deleteById(id);
+        Optional<Usuario> usuarioResponse = usuarioRepository.findById(id);
+
+        if (usuarioResponse.isPresent()) {
+            usuarioRepository.deleteById(id);
+        }
+
+
+    }
+
+    @Transactional
+    public void removerUsuarioBycpf(Usuario usuario, String cpf) {
+
+        Optional<Usuario> usuarioResponse = usuarioRepository.findByCpf(
+                usuario.getCpf());
+
+        usuarioResponse.ifPresent(
+                usuarioUm ->
+                        usuarioRepository.deleteByCpf(cpf)
+        );
 
     }
 
