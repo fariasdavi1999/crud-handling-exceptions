@@ -64,8 +64,14 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void removerUsuario(@PathVariable UUID id) {
+    public void removerUsuario(@Valid @PathVariable UUID id) {
         usuarioService.removerUsuario(id);
     }
 
+    @DeleteMapping("/cpf/{cpf}")
+    public void removerUsuarioByCpf(Usuario usuario,
+                                    @Valid @PathVariable String cpf) {
+        usuarioService.removerUsuarioBycpf(usuario, cpf);
+
+    }
 }
