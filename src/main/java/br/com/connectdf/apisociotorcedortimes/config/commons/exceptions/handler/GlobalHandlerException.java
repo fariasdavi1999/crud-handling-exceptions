@@ -1,6 +1,7 @@
 package br.com.connectdf.apisociotorcedortimes.config.commons.exceptions.handler;
 
 import br.com.connectdf.apisociotorcedortimes.config.commons.exceptions.BadRequestException;
+import br.com.connectdf.apisociotorcedortimes.config.commons.exceptions.NotFoundException;
 import jakarta.annotation.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -46,6 +47,19 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
                                    "No value present", null,
                                    Map.of("timestamp", LocalDateTime.now()));
     }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ProblemDetail handleNotFoundException(
+            NotFoundException notFoundException) {
+        logger.error(
+                notFoundException.getMessage() + notFoundException.getCause());
+
+        return createProblemDetail(notFoundException, NOT_FOUND, null,
+                                   "Não encontrado",
+                                   "No value present", null,
+                                   Map.of("timestamp", LocalDateTime.now()));
+    }
+
 
 
     private ProblemDetail createProblemDetail(Throwable exception,
