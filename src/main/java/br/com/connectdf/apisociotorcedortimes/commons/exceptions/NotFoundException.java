@@ -1,4 +1,4 @@
-package br.com.connectdf.apisociotorcedortimes.config.commons.exceptions;
+package br.com.connectdf.apisociotorcedortimes.commons.exceptions;
 
 public class NotFoundException extends RuntimeException {
 

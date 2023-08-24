@@ -1,4 +1,4 @@
-package br.com.connectdf.apisociotorcedortimes.config.commons.exceptions;
+package br.com.connectdf.apisociotorcedortimes.commons.exceptions;
 
 import java.io.Serial;
 
