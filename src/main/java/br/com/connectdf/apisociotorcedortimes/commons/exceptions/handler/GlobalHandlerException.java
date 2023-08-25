@@ -22,6 +22,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestControllerAdvice
 public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
+    private static final String TIMESTAMP = "timestamp";
 
     @ExceptionHandler(BadRequestException.class)
     public ProblemDetail handleBadRequest(
@@ -32,7 +33,7 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
 
         return createProblemDetail(badRequestException, BAD_REQUEST, null,
                                    "Corpo da requisição inválido", "", null,
-                                   Map.of("timestamp", LocalDateTime.now()));
+                                   Map.of(TIMESTAMP, LocalDateTime.now()));
     }
 
     @ExceptionHandler(NoSuchElementException.class)
@@ -45,7 +46,7 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
         return createProblemDetail(noSuchElementException, NOT_FOUND, null,
                                    "Nenhum valor foi encontrado",
                                    "No value present", null,
-                                   Map.of("timestamp", LocalDateTime.now()));
+                                   Map.of(TIMESTAMP, LocalDateTime.now()));
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -57,9 +58,8 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
         return createProblemDetail(notFoundException, NOT_FOUND, null,
                                    "Não encontrado",
                                    "No value present", null,
-                                   Map.of("timestamp", LocalDateTime.now()));
+                                   Map.of(TIMESTAMP, LocalDateTime.now()));
     }
-
 
 
     private ProblemDetail createProblemDetail(Throwable exception,
