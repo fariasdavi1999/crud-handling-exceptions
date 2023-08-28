@@ -1,6 +1,7 @@
 package br.com.connectdf.apisociotorcedortimes.entities;
 
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -295,44 +296,8 @@ public class Usuario implements Serializable {
         return Objects.equals(id, other.id);
     }
 
-    public Usuario(UUID id, String nome, String nomePai, String nomeMae,
-                   String documentoIdentidade, String dataNascimento,
-                   String genero, String cpf, String dataExpedicao,
-                   String naturalidade, String registro, String dataValidade,
-                   String categoriaHabilitacao, String dataEmissao,
-                   String estadoEmissor, String orgaoEmissor,
-                   String documentoFrente, String documentoVerso,
-                   String documentoRetrato, String documentoAssinatura,
-                   String email, String celular, String cnpj, String nomeEsposa,
-                   String cpfEsposa, String emailEsposa, String celularEsposa) {
-
-        this.id = id;
-        this.nome = nome;
-        this.nomePai = nomePai;
-        this.nomeMae = nomeMae;
-        this.documentoIdentidade = documentoIdentidade;
-        this.dataNascimento = dataNascimento;
-        this.genero = genero;
-        this.cpf = cpf;
-        this.dataExpedicao = dataExpedicao;
-        this.naturalidade = naturalidade;
-        this.registro = registro;
-        this.dataValidade = dataValidade;
-        this.categoriaHabilitacao = categoriaHabilitacao;
-        this.dataEmissao = dataEmissao;
-        this.estadoEmissor = estadoEmissor;
-        this.orgaoEmissor = orgaoEmissor;
-        this.documentoFrente = documentoFrente;
-        this.documentoVerso = documentoVerso;
-        this.documentoRetrato = documentoRetrato;
-        this.documentoAssinatura = documentoAssinatura;
-        this.email = email;
-        this.celular = celular;
-        this.cnpj = cnpj;
-        this.nomeEsposa = nomeEsposa;
-        this.cpfEsposa = cpfEsposa;
-        this.emailEsposa = emailEsposa;
-        this.celularEsposa = celularEsposa;
+    public Usuario(Usuario usuario) {
+        BeanUtils.copyProperties(usuario, this);
     }
 
 }
