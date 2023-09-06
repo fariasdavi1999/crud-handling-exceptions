@@ -26,7 +26,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(
+    public ResponseEntity<Object> findById(
             @Valid @PathVariable UUID id) {
         return usuarioService.findById(id);
     }
@@ -56,11 +56,12 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> alterarUsuario(@PathVariable UUID id,
-                                                  @Valid @RequestBody
+    public ResponseEntity<Usuario> alterarUsuario(@PathVariable(value = "id") UUID id,
+                                                  @RequestBody
+                                                  @Valid
                                                   Usuario usuario) {
 
-        return usuarioService.alterarUsuario(usuario);
+        return usuarioService.alterarUsuario(id, usuario);
     }
 
     @DeleteMapping("/{id}")

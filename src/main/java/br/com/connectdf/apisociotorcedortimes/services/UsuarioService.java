@@ -36,11 +36,15 @@ public class UsuarioService {
     }
 
     @Transactional
-    public ResponseEntity<Usuario> findById(UUID id) {
+    public ResponseEntity<Object> findById(UUID id) {
 
-        Usuario resultado = usuarioRepository.findById(id).get();
+        Optional<Usuario> resultado = usuarioRepository.findById(id);
+        if (resultado.isEmpty()) {
+            var usuario = resultado.get();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
+        }
 
-        return ResponseEntity.ok(resultado);
+        return ResponseEntity.status(HttpStatus.OK).body(resultado.get());
 
     }
 
@@ -74,21 +78,21 @@ public class UsuarioService {
     @Transactional
     public ResponseEntity<Usuario> inserirUsuario(Usuario usuario) {
 
-        Optional<Usuario> usuarioRequest = usuarioRepository.findByCpf(
-                usuario.getCpf());
-
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(usuarioRepository.saveAndFlush(usuario));
-
     }
 
     @Transactional
-    public ResponseEntity<Usuario> alterarUsuario(Usuario usuario) {
+    public ResponseEntity<Usuario> alterarUsuario(UUID id, Usuario usuario) {
 
-        Usuario us = usuarioRepository.saveAndFlush(usuario);
-        return ResponseEntity.ok().body(us);
+        Optional<Usuario> resultado = usuarioRepository.findById(id);
+        if (resultado.isEmpty()) {
+            var user = resultado.get();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(user);
+        }
 
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuario));
     }
 
     @Transactional
@@ -96,11 +100,11 @@ public class UsuarioService {
 
         Optional<Usuario> usuarioResponse = usuarioRepository.findById(id);
 
-        if (usuarioResponse.isPresent()) {
-            usuarioRepository.deleteById(id);
+        if (usuarioResponse.isEmpty()) {
+            usuarioResponse.get();
+            return;
         }
-
-
+        usuarioRepository.deleteById(id);
     }
 
     @Transactional
