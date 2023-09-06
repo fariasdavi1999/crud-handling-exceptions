@@ -2,6 +2,7 @@ package br.com.connectdf.apisociotorcedortimes.entities;
 
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario implements Serializable {
+public class Usuario extends RepresentationModel<Usuario> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 5935836358441880615L;

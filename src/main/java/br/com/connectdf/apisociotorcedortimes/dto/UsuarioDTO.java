@@ -2,10 +2,11 @@ package br.com.connectdf.apisociotorcedortimes.dto;
 
 import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
 import org.springframework.beans.BeanUtils;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.UUID;
 
-public class UsuarioDTO {
+public class UsuarioDTO extends RepresentationModel<UsuarioDTO> {
 
     private UUID id;
     private String nome;

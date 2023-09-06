@@ -5,12 +5,16 @@ import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
 import br.com.connectdf.apisociotorcedortimes.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/v1/usuario")
@@ -22,12 +26,22 @@ public class UsuarioController {
     @GetMapping("/all")
     public ResponseEntity<List<UsuarioDTO>> findAll() {
 
-        return usuarioService.findAll();
+        List<UsuarioDTO> usuarioDTOS = usuarioService.findAll().getBody();
+        if (!usuarioDTOS.isEmpty()) {
+            for (UsuarioDTO usuarioDTO : usuarioDTOS) {
+                UUID id = usuarioDTO.getId();
+                usuarioDTO.add(linkTo(methodOn(UsuarioController.class).findById(
+                        id)).withSelfRel());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                usuarioDTOS);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> findById(
-            @Valid @PathVariable UUID id) {
+    public ResponseEntity<Usuario> findById(
+            @PathVariable UUID id) {
+
         return usuarioService.findById(id);
     }
 

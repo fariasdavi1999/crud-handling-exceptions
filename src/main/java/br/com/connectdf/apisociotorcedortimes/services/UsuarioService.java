@@ -1,5 +1,6 @@
 package br.com.connectdf.apisociotorcedortimes.services;
 
+import br.com.connectdf.apisociotorcedortimes.controllers.UsuarioController;
 import br.com.connectdf.apisociotorcedortimes.dto.UsuarioDTO;
 import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
 import br.com.connectdf.apisociotorcedortimes.repositories.UsuarioRepository;
@@ -8,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +40,16 @@ public class UsuarioService {
     }
 
     @Transactional
-    public ResponseEntity<Object> findById(UUID id) {
+    public ResponseEntity<Usuario> findById(UUID id) {
 
         Optional<Usuario> resultado = usuarioRepository.findById(id);
         if (resultado.isEmpty()) {
             var usuario = resultado.get();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
         }
+
+        resultado.get().add(linkTo(methodOn(UsuarioController.class).findAll()).withRel(
+                "Lista Usuarios"));
 
         return ResponseEntity.status(HttpStatus.OK).body(resultado.get());
 
