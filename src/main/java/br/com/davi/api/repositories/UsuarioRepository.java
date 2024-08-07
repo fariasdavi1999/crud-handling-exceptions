@@ -1,6 +1,6 @@
 package br.com.davi.api.repositories;
 
-import br.com.davi.api.entities.Usuario;
+import br.com.davi.api.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 

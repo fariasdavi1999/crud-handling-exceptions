@@ -1,6 +1,6 @@
 package br.com.davi.api.dto;
 
-import br.com.davi.api.entities.Usuario;
+import br.com.davi.api.models.Usuario;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.beans.BeanUtils;

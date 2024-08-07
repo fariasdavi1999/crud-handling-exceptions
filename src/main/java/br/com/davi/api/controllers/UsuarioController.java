@@ -1,7 +1,7 @@
 package br.com.davi.api.controllers;
 
 import br.com.davi.api.dto.UsuarioDTO;
-import br.com.davi.api.entities.Usuario;
+import br.com.davi.api.models.Usuario;
 import br.com.davi.api.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

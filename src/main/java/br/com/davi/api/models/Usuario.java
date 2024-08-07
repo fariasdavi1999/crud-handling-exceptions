@@ -1,4 +1,4 @@
-package br.com.davi.api.entities;
+package br.com.davi.api.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
