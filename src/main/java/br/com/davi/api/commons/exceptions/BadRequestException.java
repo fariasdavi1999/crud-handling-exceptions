@@ -1,4 +1,4 @@
-package br.com.connectdf.apisociotorcedortimes.commons.exceptions;
+package br.com.davi.api.commons.exceptions;
 
 import java.io.Serial;
 

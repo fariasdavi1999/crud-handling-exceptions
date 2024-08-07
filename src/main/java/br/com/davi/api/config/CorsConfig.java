@@ -1,4 +1,4 @@
-package br.com.connectdf.apisociotorcedortimes.config;
+package br.com.davi.api.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

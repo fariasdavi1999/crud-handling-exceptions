@@ -1,7 +1,7 @@
-package br.com.connectdf.apisociotorcedortimes.commons.exceptions.handler;
+package br.com.davi.api.commons.exceptions.handler;
 
-import br.com.connectdf.apisociotorcedortimes.commons.exceptions.BadRequestException;
-import br.com.connectdf.apisociotorcedortimes.commons.exceptions.NotFoundException;
+import br.com.davi.api.commons.exceptions.BadRequestException;
+import br.com.davi.api.commons.exceptions.NotFoundException;
 import jakarta.annotation.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

@@ -1,10 +1,11 @@
-package br.com.connectdf.apisociotorcedortimes.services;
+package br.com.davi.api.services;
 
-import br.com.connectdf.apisociotorcedortimes.controllers.UsuarioController;
-import br.com.connectdf.apisociotorcedortimes.dto.UsuarioDTO;
-import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
-import br.com.connectdf.apisociotorcedortimes.repositories.UsuarioRepository;
+import br.com.davi.api.controllers.UsuarioController;
+import br.com.davi.api.dto.UsuarioDTO;
+import br.com.davi.api.entities.Usuario;
+import br.com.davi.api.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class UsuarioService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(usuario);
         }
 
-        resultado.get().add(linkTo(methodOn(UsuarioController.class).findAll()).withRel(
+        resultado.get().add(WebMvcLinkBuilder.linkTo(methodOn(UsuarioController.class).findAll()).withRel(
                 "Lista Usuarios"));
 
         return ResponseEntity.status(HttpStatus.OK).body(resultado.get());

@@ -1,8 +1,8 @@
-package br.com.connectdf.apisociotorcedortimes.controllers;
+package br.com.davi.api.controllers;
 
-import br.com.connectdf.apisociotorcedortimes.dto.UsuarioDTO;
-import br.com.connectdf.apisociotorcedortimes.entities.Usuario;
-import br.com.connectdf.apisociotorcedortimes.services.UsuarioService;
+import br.com.davi.api.dto.UsuarioDTO;
+import br.com.davi.api.entities.Usuario;
+import br.com.davi.api.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
