@@ -1,13 +1,13 @@
-package br.com.connectdf.apisociotorcedortimes;
+package br.com.davi.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiSociotorcedorTimesApplication {
+public class ApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiSociotorcedorTimesApplication.class, args);
+		SpringApplication.run(ApiApplication.class, args);
 	}
 
 }
