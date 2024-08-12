@@ -2,15 +2,15 @@ services:
   postgres:
     image: postgres
     restart: unless-stopped
-    container_name: crud-handling-exceptions
+    container_name: crud-handle
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: api
+      POSTGRES_DB: handledb
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U root -d api" ]
+      test: [ "CMD-SHELL", "pg_isready -U root -d handledb" ]
       interval: 2s
       timeout: 3s
       retries: 30
@@ -19,11 +19,8 @@ services:
 
 networks:
   default:
-    name: api-default-network
+    name: crud-api-default
     driver: bridge
-    ipam:
-      config:
-        - subnet: 10.10.4.0/25
 
 volumes:
   postgres:
